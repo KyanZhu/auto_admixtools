@@ -27,10 +27,10 @@ Z<-apply(Z,c(1,2),as.numeric)
 
 #加分组(按语系+按target）
 popGroups_modern=c()
-popGroups_modern <- read.table('pop.txt',col.names=c("Pop", "color", "PopGroup","colcew")) #1记录群体；2分组颜色；3所属语系名；4target群体（红色），其他黑色
+popGroups_modern <- read.table('pop.txt',col.names=c("Pop", "color", "PopGroup","colcew"),sep = '\t') #1记录群体；2分组颜色；3所属语系名；4target群体（红色），其他黑色
 #pheatmap
 OUTPUT3=paste(PREFIX,"_pheatmap.pdf",sep="")
-pdf(file=OUTPUT3,width=20,height=20)
+pdf(file=OUTPUT3,width=22,height=22)
 aa=data.frame(POPS)
 colnames(aa)="Pop"
 bb=merge(data.frame(aa),popGroups_modern,by="Pop")
