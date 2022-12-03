@@ -7,7 +7,7 @@ COL_POPX=1
 COL_POPY=2
 VALUE_COL=4
 Z_col=6
-cut_num=18
+cut_num=16
 POPS <- unique(sort(c((X[,COL_POPX:COL_POPY]))))
 NPOPS <- length(POPS)
 print(NPOPS)
@@ -29,8 +29,8 @@ Z<-apply(Z,c(1,2),as.numeric)
 popGroups_modern=c()
 popGroups_modern <- read.table('pop.txt',col.names=c("Pop", "color", "PopGroup","colcew"),sep = '\t') #1记录群体；2分组颜色；3所属语系名；4target群体（红色），其他黑色
 #pheatmap
-OUTPUT3=paste(PREFIX,"_pheatmap.pdf",sep="")
-pdf(file=OUTPUT3,width=22,height=22)
+OUTPUT3=paste("heatmap.pdf",sep="")
+pdf(file=OUTPUT3,width=23,height=23)
 aa=data.frame(POPS)
 colnames(aa)="Pop"
 bb=merge(data.frame(aa),popGroups_modern,by="Pop")

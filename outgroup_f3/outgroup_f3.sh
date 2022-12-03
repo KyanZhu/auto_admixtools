@@ -11,9 +11,9 @@ geno_dir=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k
 work_dir=/home/KongyangZhu/beizhou/5.popgen/9.outgroupf3/outgroupf3_1
 geno_file=Wudi_Xianbei_1240k  # prefix
 poplist=poplist.txt
-qp3Pop_sh=/home/KongyangZhu/sh/qp3Pop
+qp3Pop_sh=/home/KongyangZhu/sh/outgroup_f3
 # qp3Pop parameters
-outgroup=Mbuti.DG
+outgroup=Mbuti
 thread=10
 
 cd ${work_dir}
@@ -46,7 +46,7 @@ done > extract.par ; convertf -p extract.par
 
 # qp3pop par
 cat ${poplist} | grep -v ${outgroup} | grep -v "=" > tmp
-cp ${qp3Pop_sh}/gen3Pop.py ${qp3Pop_sh}/gen3txt.py ${qp3Pop_sh}/plot_outgroupf3.r ./
+cp ${qp3Pop_sh}/*.{py,r} ./
 python gen3Pop.py tmp ${outgroup} > qp3pop
 rm tmp gen3Pop.py
 
@@ -67,12 +67,13 @@ split -l ${line} qp3pop spop
 li=$(ls spop*)
 for i in ${li};do cat qp3.par | sed "s/qp3pop/${i}/g" > ${i}.par ; done
 parallel --verbose qp3Pop -p {1}.par ">" {1}.result ::: ${li}
-cat *result > qp3.result
+cat *result > qp3.result ; cat qp3.result | grep result: | sort -nrk5 > summ.txt
+cat summ.txt | awk '{tmp=$2; $2=$3; $3=tmp ; print}' > tmp ; cat summ.txt tmp | sort -nrk5 > pairs.txt ; rm tmp
 cat qp3.result | grep result: | awk '{print $2,$3,$4,$5,$6,$7,$8}' > plot.txt
 rm spop*
 
 python gen3txt.py ${poplist} > pop.txt
-Rscript plot_outgroupf3.r
+Rscript plot_pheatmap.r
 
-zip qp3result.zip qp3.result plot.txt pop.txt plot_outgroupf3.r *pdf *sh
+zip qp3result.zip qp3.result plot.txt pop.txt plot_pheatmap.r *pdf *sh
 notify qp3pop
