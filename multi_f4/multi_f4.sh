@@ -1,6 +1,6 @@
 #!/bin/sh
 # @Time : 2022/10/08 12:49
-# @Author : cewinhot
+# @Author : KyanZhu
 # @Version：1.4
 # @File : multi_f4
 
