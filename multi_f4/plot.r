@@ -49,6 +49,8 @@ ggplot(data = mydata, aes(y = pop,x = Fst)) +  # 图例设置成离散的 就直
         panel.grid.major =element_blank(), 
         panel.grid.minor = element_blank(),  # 底色
         panel.background = element_blank(), 
+        axis.text.x = element_text(color = "black"),
+        axis.text.y = element_text(color = "black"),
         axis.line=element_line(colour = "black"))+ 
   facet_grid(.~ Pop)
 dev.off()
