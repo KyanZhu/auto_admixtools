@@ -4,14 +4,14 @@ fancyADMIXTURE <- function(
   KMAX,
   PADDING = 500,
   BARSEP = 10,
-  POPSEP = 8,
+  POPSEP = 0,
   BARWIDTH = 3,
   BARWIDTH_SPECIAL = 5*BARWIDTH,
   BARHEIGHT = 200,
   HCLUST = F,
   COUNT_FILE = NA,
-  KFONT = 3,
-  LABFONT = 2,
+  KFONT = 2,
+  LABFONT = 1,
   CUTLINE = '',
   PNG = T, 
   SINGLESLICE = '',
@@ -23,7 +23,7 @@ fancyADMIXTURE <- function(
 
 # This is the original (classic)
 #  RAINBOW <- c("#ff994d", "#0099e6", "#e6ff00", "#ff99e6", "#339933", "#800080", "#ff004d", "#00ff00", "#0000ff", "#ff00ff", "#ffe699", "#b24d00", "#00ffff", "#808000", "#ff9999", "#008080", "#99bf26", "#7326e6", "#26bf99", "#808080", "#0d660d", "#bfbfbf", "#ff0000", "#99e6ff", "#ff9966", "#404040", "#ffe6e6", "#993333", "#ff6600", "#33004d")
-  source('~/sh/fancy_admixture/makePalette.r')
+  source('./fancy/makePalette.r')
 #  RAINBOW <- makePalette(KMAX+2)
   COLOR <- array(dim=c(KMAX,KMAX))
   COLOR[KMIN,1:KMIN] <- RAINBOW[1:KMIN]
@@ -58,7 +58,7 @@ fancyADMIXTURE <- function(
   if (!HCLUST)
     POPS <- unique(ID_POP[,2])
   else {
-       source('~/sh/fancy_admixture/averagePopsUnsorted.r')
+       source('./fancy/averagePopsUnsorted.r')
        Q <- averagePopsUnsorted(paste(PREFIX,'.',KMIN,'.Q',sep=''),paste(PREFIX,'.fam',sep=''))[,3:(KMIN+2)]
        COUNTPOPS <- c(as.matrix(averagePopsUnsorted(paste(PREFIX,'.',KMIN,'.Q',sep=''),paste(PREFIX,'.fam',sep=''))[,1]))
        class(Q) <- "numeric"
@@ -131,7 +131,7 @@ fancyADMIXTURE <- function(
   for (pop in POPS) {
     WHICH <- which(ID_POP[,2]==pop)
     THISBARWIDTH <- BARWIDTH
-    POPSEP <- 8
+    POPSEP <- 0
     if (length(WHICH) == 1)
       THISBARWIDTH <- 12
     if (length(WHICH) == 2)
@@ -139,7 +139,7 @@ fancyADMIXTURE <- function(
     if (length(WHICH) == 3)
       THISBARWIDTH <- 4
     if (length(WHICH) < 6)
-      POPSEP <- 15
+      POPSEP <- 0
     if (sum(CUTLINE==pop)==1)
       THISBARWIDTH <- BARWIDTH_SPECIAL
     text(round(LEFT+length(WHICH)*THISBARWIDTH/2),PADDING-BARSEP,labels=pop,srt=90,adj=1, cex=LABFONT)
@@ -161,6 +161,7 @@ fancyADMIXTURE <- function(
         }
         HORIZON <- NEWHORIZON
       }
+      rect(LEFT,BOTTOM,LEFT+THISBARWIDTH*length(WHICH),BOTTOM+BARHEIGHT,border='black')
       BOTTOM <- BOTTOM+BARHEIGHT+BARSEP
       }
     } 

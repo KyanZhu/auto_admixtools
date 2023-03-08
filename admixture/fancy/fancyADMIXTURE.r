@@ -2,16 +2,16 @@ fancyADMIXTURE <- function(
   PREFIX,
   KMIN,
   KMAX,
-  PADDING = 500,
+  PADDING = 200,
   BARSEP = 10,
-  POPSEP = 0,
+  POPSEP = 10,
   BARWIDTH = 3,
   BARWIDTH_SPECIAL = 5*BARWIDTH,
   BARHEIGHT = 200,
   HCLUST = F,
   COUNT_FILE = NA,
-  KFONT = 2,
-  LABFONT = 1,
+  KFONT = 3,
+  LABFONT = 2,
   CUTLINE = '',
   PNG = T, 
   SINGLESLICE = '',
@@ -131,15 +131,6 @@ fancyADMIXTURE <- function(
   for (pop in POPS) {
     WHICH <- which(ID_POP[,2]==pop)
     THISBARWIDTH <- BARWIDTH
-    POPSEP <- 0
-    if (length(WHICH) == 1)
-      THISBARWIDTH <- 12
-    if (length(WHICH) == 2)
-      THISBARWIDTH <- 6
-    if (length(WHICH) == 3)
-      THISBARWIDTH <- 4
-    if (length(WHICH) < 6)
-      POPSEP <- 0
     if (sum(CUTLINE==pop)==1)
       THISBARWIDTH <- BARWIDTH_SPECIAL
     text(round(LEFT+length(WHICH)*THISBARWIDTH/2),PADDING-BARSEP,labels=pop,srt=90,adj=1, cex=LABFONT)
@@ -161,7 +152,6 @@ fancyADMIXTURE <- function(
         }
         HORIZON <- NEWHORIZON
       }
-      rect(LEFT,BOTTOM,LEFT+THISBARWIDTH*length(WHICH),BOTTOM+BARHEIGHT,border='black')
       BOTTOM <- BOTTOM+BARHEIGHT+BARSEP
       }
     } 

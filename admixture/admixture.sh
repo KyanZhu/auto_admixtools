@@ -11,7 +11,6 @@ geno_dir=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/HO
 work_dir=/home/KongyangZhu/beizhou/5.popgen/7.admixture
 geno_file=Wudi_Xianbei_HO  # prefix
 poplist=poplist.txt  # extract poplist
-fancy=/home/KongyangZhu/sh/fancy_admixture
 thread=10
 K_st=2
 K_en=14
@@ -91,9 +90,9 @@ min=$(cat CV_error.txt  | sort -k 4 -n | head -n 1 | awk '{print $3}' | egrep -o
 
 # plot
 for version in 1 2;do
-    cat ${fancy}/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/2/g" | sed "s/replaceen/${K_en}/g" | sed "s/replaceprefix/full/g" > full.R ; Rscript full.R
+    cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/2/g" | sed "s/replaceen/${K_en}/g" | sed "s/replaceprefix/full/g" > full.R ; Rscript full.R
     for i in $(seq ${K_st} ${K_en});do
-        cat ${fancy}/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/${i}/g" | sed "s/replaceen/${i}/g" | sed "s/replaceprefix/${i}/g" > ${i}.R ; Rscript ${i}.R
+        cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/${i}/g" | sed "s/replaceen/${i}/g" | sed "s/replaceprefix/${i}/g" > ${i}.R ; Rscript ${i}.R
     done
     mkdir pdf${version} ; mv *.pdf pdf${version}
 done
