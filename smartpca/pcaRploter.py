@@ -1,7 +1,7 @@
 # coding:utf-8
-# @Time : 2022/10/03 17:45
+# @Time : 2022/03/08 17:45
 # @Author : cewinhot
-# @Version: 4.4
+# @Version: 4.5
 # @File : pcaRploter
 
 
@@ -69,6 +69,8 @@ for i in poptext:
         j += 1
         pop_list.append([])
         pop_list[j].append(i.strip("="))
+    elif i[0] == "#":
+        continue
     else:
         pop_list[j].append(i)
 light = 1
