@@ -25,8 +25,7 @@ if [ ${missing} -eq 1 ];then exit; fi
 # check extract.poplist
 echo -e "=== checking popluations ! ==="
 lack_pops=""
-cat ${poplist} | grep -v "#" > poplist.tmp
-cat poplist.tmp | grep -v "=" > extract.poplist && rm poplist.tmp
+cat ${poplist} | egrep -v "#|=" > extract.poplist
 cat ${geno_dir}/${geno_file}.ind | awk '{print $3}' | sort -u > ind.tmp
 pops=$(cat extract.poplist)
 for pop in ${pops};do
