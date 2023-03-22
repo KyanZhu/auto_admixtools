@@ -1,0 +1,7 @@
+genotypename:   f4.geno
+snpname:   f4.snp
+indivname:   f4.ind
+popfilename:   replacepop
+f4mode:   YES
+printsd:  YES
+inbreed:	YES

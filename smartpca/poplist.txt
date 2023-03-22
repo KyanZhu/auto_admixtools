@@ -1,0 +1,128 @@
+====Han====
+Han_Fujian
+Han_Guangdong
+Han_Henan
+Han_Hubei
+Han_Jiangsu
+Han_Shandong
+Han_Shanghai
+Han_Shanxi
+Han_Sichuan
+Han_Zhejiang
+Han_Chongqing
+Han_NChina
+Han_HGDP
+====Austronesian====
+Ami
+Atayal
+Malay
+Tagalog
+====Hmong-Mien====
+Miao
+She
+Gelao
+Hmong
+Dao
+====Japanese-Korean====
+Korean
+Japanese
+====Mongolian====
+Mongola
+Daur
+Tu
+Dongxiang
+Yugur
+Bonan
+Buryat
+Mongol
+====Tai-Kadai====
+Dai
+Dai.DG
+Zhuang
+Li
+Dong_Hunan
+Thai
+Tay
+BoY
+CoLao
+Nung
+====Tibetan-Burman====
+Tibetan_Chamdo
+Tibetan_Lhasa
+Tibetan_Yunnan
+Tujia
+Yi
+Naxi
+China_Lahu
+====Tungusic====
+Xibo
+Hezhen
+Oroqen
+Ulchi
+Evenk_FarEast
+====Ancient Yellow River====
+Bianbian
+Boshan
+Xiaogao
+Xiaojingshan
+Shimao_LN
+Miaozigou_MN
+Yumin
+YR_LN
+YR_MN
+YR_LBIA
+Upper_YR_LN
+Upper_YR_IA
+====Ancient Amur River====
+AR19K
+AR14K
+ARpost9K
+AR_EN
+AR_IA
+AR_Xianbei_IA
+HMMH_MN
+WLR_MN
+WLR_LN
+WLR_BA
+====Ancient Nepal====
+Mebrak
+Suila
+Lubrak
+====Ancient Southern Asia====
+Taiwan_Hanben
+Taiwan_Gongguan
+Qihe
+Longlin
+Tanshishan
+Xitoucun
+Suogang
+Chuanyun
+Liangdao1
+Liangdao2
+====Ancient Mongolia====
+Mongolia_N_North
+Mongolia_N_East
+Chandman_IA
+lateMed_Khitan
+lateXiongnu
+lateMed_Mongol
+====Ancient Central Asian====
+# China_IA
+Dzungaria_EBA1
+Dzungaria_EBA2
+Tarim_EMBA1
+Tarim_EMBA2
+====Ancient Russia====
+DevilsCave_N.SG
+Boisman_MN
+Yankovsky_IA
+# Ekven_IA
+# Russia_Heshui_Mohe_Early_Medieval
+# Russia_Shamanka_Eneolithic
+# Russia_Lokomotiv_Eneolithic
+# Russia_Afanasievo
+# Russia_Andronovo
+# Russia_Sintashta_MLBA
+# Russia_Sarmatian
+====DSQM====
+DSQM

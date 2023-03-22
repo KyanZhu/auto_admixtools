@@ -1,0 +1,8 @@
+genotypename: ../extract.geno
+snpname:      ../extract.snp
+indivname:    ../extract.ind
+popleft:  replaceleft
+popright: outgroup
+inbreed: YES
+allsnps: NO
+details: YES

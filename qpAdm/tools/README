@@ -1,0 +1,43 @@
+# @Time : 2022/4/4 11:22
+# @Author : cewinhot
+# @Version：0.4
+# @File : qpAdm_tools
+
+SETTINGS:
+bsub参数                      0.qpAdm_template.bsub 中修改
+qpadm参数(inbreed,allsnps)    1.rotate_prepare.py   中修改
+excel文件参数(std, tail阈值)   5.result2excel.py     中修改
+
+requires:
+python3
+python3 openpyxl模块  # pip install openpyxl
+配置好本地linux和学校服务器之间的无密码传输  # ssh-keygen -t rsa
+GNU parallel 模块  # sudo apt-get install parallel
+
+
+基本使用
+1. 将工具包文件夹 拷入 新建工作目录
+2. python 0.rotate_pops.py会在工作目录下新建excel文件
+3. 在excel文件中填入targets, sources, fixed outgroup文件
+   在sources栏第二行(通过'# Rotate', '# Combination'可以指定组合方式
+   指定'# Combination', 在下方将不同的群体用#分开, 将会用不同群体生成source组合
+4. 修改0.function.sh的dst, genofile参数
+5. source 0.function载入参数及函数
+6. 修改0.qpAdm_template.bsub模板文件
+7. 在本地bash键入命令 scpfile(或fun0) ,会将准备文件考到学校服务器目标文件夹
+8. 进入学校服务器目标文件夹, source 0.function.sh, 键入命令 submit(或fun1) ,提交任务
+9. 任务执行完成后键入命令 result(或fun2) ,执行提取结果函数
+10.在本键入命令scpback(或fun3) ,将结果文件传回本地并生成excel文件
+
+
+0.function.sh           任务函数
+0.qpAdm_template.bsub   bsub模板, 修改bsub参数
+0.rotate_pops.py        准备文件脚本
+1.rotate_prepare.py     准备文件脚本
+2.bsub_qpAdm.sh         提交任务到学校服务器
+3.grep_result.sh        提取所有结果的best coefficient, std. errors, tail, jackknife值
+4.all_result.txt        所有结果
+4.success_result.txt    提取出模拟成功的结果
+5.result2excel.py       将4.all_result.txt结果在excel中显示, 不合理组合标红, 整合target, source, outgroup信息
+6.result.xlsx           5.resul2excel.py输出结果文件名前缀为目录名
+7.barplot.r             用于结果可视化
