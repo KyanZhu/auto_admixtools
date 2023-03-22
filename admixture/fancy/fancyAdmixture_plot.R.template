@@ -1,4 +1,0 @@
-source('./fancy/fancyADMIXTURE.Reditreplaceversion.r')
-# fam file in $pops $sample $sex format must have the same prefix with the .Q file
-fancyADMIXTURE('prune',KMIN=replacest,KMAX=replaceen,HCLUST=T,PNG=F,OUTFILEPREFIX='replaceprefix')
-q()
