@@ -94,7 +94,7 @@ if __name__ == '__main__':
     if os.path.exists(os.path.join(path, "summ.table")):
         f = os.path.join(path, "summ.table")
         with open(f) as text:
-            summ = ["#", "Population", "Min Z-score", "Max Z-score", "Min Fst", "Max Fst", "Abs(Min) + Abs(Max)"]
+            summ = ["#", "Population", "Min Z-score", "Max Z-score", "Min f4", "Max f4", "Abs(Min) + Abs(Max)"]
             sheet = wb.create_sheet("summary")
             sheet.append(summ)
             [sheet.append(line.split(sep="\t")) for line in text]

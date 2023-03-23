@@ -28,10 +28,13 @@ if [ ! -f f4.geno ] || [ ! -f f4.snp ] || [ ! -f f4.ind ];then ln -s ${geno} f4.
 cp ${f4_tools}/{0.pars,4.merge_f4_result.v2.py,8.adjust_excel.py,plot.r} ./
 
 # Check if pops are exist
-cat f4.ind | rmsp | cut -f 3 | sort -u > checklist.tmp
-li="${p1s} ${p2s} ${p3s} ${p4s}"
-for i in ${li};do cat checklist.tmp | grep "^${i}$" > /dev/null ; if [ ! $? -eq 0 ] ;then echo -e "Pop [ ${i} ] not exists\nEnd Processing!" ; exit 1 ; fi ; done
-rm checklist.tmp ; echo -e "Check poplist Done\nStart f4-statistics!"
+cat f4.ind | rmsp | cut -f 3 | sort -u > ind.tmp
+pops="${p1s} ${p2s} ${p3s} ${p4s}"
+for pop in ${pops};do
+    cat ind.tmp | grep -x ${pop} >/dev/null 2>&1
+    if [ ! $? -eq 0 ];then lack_pops="${lack_pops} [${pop}]" ; flag="FALSE"; fi
+done && echo -e "=== check poplist done ! ===\n\n" ; rm ind.tmp
+if [[ ${flag} == "FALSE" ]];then echo ${lack_pops} not in dataset; exit; fi ; echo -e "Check poplist Done\nStart f4-statistics!"
 
 # split tasks by $thread
 a=$(wc -l ${popfile} | cut -d ' ' -f 1)

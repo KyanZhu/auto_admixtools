@@ -5,9 +5,9 @@ filename="plot.txt"
 outfile="plot.pdf"
 pagewidth=6
 pageheight=15
-x_Fst_min=-0.01
-x_Fst_max=0.01
-mydata=read.table(filename, col.names=c("pop", "Fst", "z_score", "order"), sep="\t")
+x_f4_min=-0.01
+x_f4_max=0.01
+mydata=read.table(filename, col.names=c("pop", "f4", "z_score", "order"), sep="\t")
 
 Color=c()
 for(k in seq(1,nrow(mydata))){
@@ -24,10 +24,10 @@ for(k in seq(1,nrow(mydata))){
 }
 
 for(k in seq(1,nrow(mydata))){
-  if(mydata$Fst[k] <= x_Fst_min){
-    mydata$Fst[k] = x_Fst_min}
-  if(mydata$Fst[k] > x_Fst_max){
-    mydata$Fst[k] = x_Fst_max}
+  if(mydata$f4[k] <= x_f4_min){
+    mydata$f4[k] = x_f4_min}
+  if(mydata$f4[k] > x_f4_max){
+    mydata$f4[k] = x_f4_max}
 }
 
 
@@ -38,13 +38,13 @@ for(k in seq(1,nrow(mydata))){
 mydata$Pop <- Pop
 mydata$pop <- factor(mydata$pop, levels=rev(unique(mydata$pop)))
 pdf(file=outfile,width=pagewidth,height=pageheight)
-ggplot(data = mydata, aes(y = pop,x = Fst)) +  # 图例设置成离散的 就直接加factor就行 
+ggplot(data = mydata, aes(y = pop,x = f4)) +  # 图例设置成离散的 就直接加factor就行 
   # geom_line() + 
   geom_point(fill = Color,color= Color,shape=1,size=2)+
   labs(y=" ")+
   theme_bw()+
   geom_vline(xintercept = c(0), colour = "orange",linetype="dashed")+  # 参考线
-  scale_x_continuous(limits=c(x_Fst_min, x_Fst_max))+ #, breaks=c(-5, -3, 0, 3, 5))+
+  scale_x_continuous(limits=c(x_f4_min, x_f4_max))+ #, breaks=c(-5, -3, 0, 3, 5))+
   theme(legend.position = "bottom", 
         panel.grid.major =element_blank(), 
         panel.grid.minor = element_blank(),  # 底色
