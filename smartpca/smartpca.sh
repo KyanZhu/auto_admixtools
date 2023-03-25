@@ -8,8 +8,8 @@
 
 geno_dir=/home/KongyangZhu/data/12.shallow/2023.03.02/pops/dataset/HO
 geno_file=DSQM_HO  # prefix
-workdir=/home/KongyangZhu/data/12.shallow/2023.03.02/pops/1.smartpca
-poplist=/home/KongyangZhu/data/12.shallow/2023.03.02/pops/1.smartpca/poplist.txt
+workdir=./
+poplist=poplist.txt  # default
 
 alias rmsp='sed "s/^\s*//g" | sed "s/[[:blank:]]\+/\t/g"'
 cd ${workdir}

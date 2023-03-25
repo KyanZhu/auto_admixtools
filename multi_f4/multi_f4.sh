@@ -6,7 +6,7 @@
 
 # SETTINGS
 thread=10
-geno=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.geno
+geno=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.geno  # 需要完整路径
 snp=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.snp
 ind=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.ind
 f4_tools=/home/KongyangZhu/sh/f4_tools/v1.4
