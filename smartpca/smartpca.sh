@@ -1,14 +1,14 @@
 #!/bin/sh
 # coding:utf-8
 # @Time : 2023/03/08 01:09
-# @Version: v2.7
+# @Version: v2.8
 # @File : smartpca.sh
 # @Author : zky
 
 
-geno_dir=/home/KongyangZhu/data/12.shallow/2023.03.02/pops/dataset/HO
-geno_file=DSQM_HO  # prefix
-workdir=./
+geno_dir=/home/KongyangZhu/guizhou/3.call_modern/2.pca/dataset
+geno_file=HO  # prefix
+workdir=$(pwd)
 poplist=poplist.txt  # default
 
 alias rmsp='sed "s/^\s*//g" | sed "s/[[:blank:]]\+/\t/g"'
@@ -32,7 +32,17 @@ for pop in ${pops};do
     cat ind.tmp | grep -x ${pop} >/dev/null 2>&1
     if [ ! $? -eq 0 ];then lack_pops="${lack_pops} [${pop}]" ; flag="FALSE"; fi
 done && echo -e "=== check poplist done ! ===\n\n" ; rm ind.tmp
-if [[ ${flag} == "FALSE" ]];then echo ${lack_pops} not in dataset; exit; fi
+if [[ ${flag} == "FALSE" ]];then echo ${lack_pops} not in dataset; echo ""; read -p "Continue execution? (y/n) " choice ; if [[ "${choice}" == "y" ]]; then echo -e "Continuing execution...\n" ; else exit 1 ; fi; fi
+
+# remove lack pops
+if [[ ${choice} == "y" ]];then
+    echo -e "\nremove lack pops from ${poplist}\n"
+    echo ${lack_pops} | sed 's/\[//g' | sed 's/\]//g' | sed 's/ /\n/g' > lack_pops.txt
+    cat ${poplist} | grep -v -f lack_pops.txt > tmp
+    cat tmp > ${poplist}
+    cat ${poplist} | egrep -v "#|=" > extract.poplist
+    rm lack_pops.txt tmp
+fi
 
 # extract poplist from HO
 echo "=== running convertf ! ==="
