@@ -1,8 +1,8 @@
 #!/bin/sh
 # coding:utf-8
 # @Time : 2023/03/08 01:09
-# @Version: v2.8
 # @File : smartpca.sh
+# @Version: v2.8
 # @Author : zky
 
 
@@ -16,11 +16,11 @@ cd ${workdir}
 
 # check files
 missing=0
-if [ ! -f ${geno_dir}/${geno_file}.geno ];then echo "!!! Missing geno file !!! " ; missing=1 ; fi
-if [ ! -f ${poplist} ];then echo "!!! Missing poplist !!! " ; missing=1 ; fi    
-if [ ! -f pcaRploter.py ];then echo "!!! Missing pcaRploter.py !!! " ; missing=1 ; fi
-if [ ! -f bc.py ];then echo "!!! Missing bc.py !!! " ; missing=1 ; fi
-if [ ${missing} -eq 1 ];then exit; fi
+if [ ! -f ${geno_dir}/${geno_file}.geno ];then echo "!!! Missing geno file !!! "     ; missing=1 ; fi
+if [ ! -f ${poplist} ];                   then echo "!!! Missing poplist !!! "       ; missing=1 ; fi    
+if [ ! -f pcaRploter.py ];                then echo "!!! Missing pcaRploter.py !!! " ; missing=1 ; fi
+if [ ! -f bc.py ];                        then echo "!!! Missing bc.py !!! "         ; missing=1 ; fi
+if [ ${missing} -eq 1 ];                  then exit; fi
 
 # check extract.poplist
 echo -e "=== checking popluations ! ==="

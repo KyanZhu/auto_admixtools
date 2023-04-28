@@ -1,8 +1,8 @@
 # coding:utf-8
 # @Time : 2022/03/08 17:45
-# @Author : cewinhot
-# @Version: 4.5
 # @File : pcaRploter
+# @Version: v4.5
+# @Author : zky
 
 
 import argparse

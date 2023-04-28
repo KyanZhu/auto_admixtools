@@ -1,8 +1,14 @@
 ==== Usage ====
-...
+人群文件放在poplist.txt
+人群分组以"="开头           	(pcaRploter  Line68)
+现代人需要放在所有古代人前面 	(smartpca.sh Line62)
+古代人群需要以Ancient开头  	(pcaRploter  Line82)
+目标人群放在最后(图标不同)  	(pcaRploter  Line95)
 
 
 ==== Change Log ====
+Version v2.6 2022/11/16
+	增加计算PC百分比
 Version v2.7 2023/03/08
 	增加poplist.txt对"#"注释支持
 Version v2.8 2023/04/06
