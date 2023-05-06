@@ -10,19 +10,17 @@
 geno_dir=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/HO
 work_dir=$(pwd)
 geno_file=Wudi_Xianbei_HO  # prefix
-poplist=poplist.txt  # extract poplist
-thread=10
-K_st=2
-K_en=14
-bootstrap="-B100"  # 不需要bootstrap放空""
+poplist=poplist.txt
+thread=30
+bootstrap="-B100"  # "-B100" 或 ""
+source="Ami Russia_Afanasievo AR_EN"
 
 mkdir -p ${work_dir} ; cd ${work_dir}
-
 # 0. check files
 missing=0
 if [ ! -f ${geno_dir}/${geno_file}.geno ];then echo "!!! Missing geno file !!! " ; missing=1 ; fi
 if [ ! -f ${poplist} ];then echo "!!! Missing poplist !!! " ; missing=1 ; fi    
-if [ ! -f remove_excess.py ];then echo "!!! remove_excess.py !!! " ; missing=1 ; fi
+if [ ! -f remove_excess.py ];then echo "!!! Missing remove_excess.py !!! " ; missing=1 ; fi
 if [ ${missing} -eq 1 ];then exit; fi
 
 # 0. check extract.poplist
@@ -81,21 +79,18 @@ plink --bfile extract --indep-pairwise 200 25 0.4 --out plink --allow-no-sex
 plink --bfile extract --extract plink.prune.in  --make-bed --out prune  --allow-no-sex
 cat extract.ind | awk '{print $3,$1,$2}' > prune.fam  # change prune.fam file to admixture format
 
-# 5. Admixture
-bed_file=prune.bed
-parallel -j ${thread} --verbose admixture -s time ${bootstrap} -j10 --cv ${bed_file} {} "|" tee -a result.out ::: $(seq ${K_st} ${K_en})
-# grep result
-cat result.out | grep "CV error" | sort -k 4 -n > CV_error.txt
-min=$(cat CV_error.txt  | sort -k 4 -n | head -n 1 | awk '{print $3}' | egrep -o '[0-9]{1,2}')
+# 5. if source in prune.fam $1, then print $1, else print "-"
+cat prune.fam | awk -v source="${source}" '{if(source ~ $1)print $1;else print "-"}' > prune.pop
 
-# plot
-for version in 1 2;do
-    cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/2/g" | sed "s/replaceen/${K_en}/g" | sed "s/replaceprefix/full/g" > full.R ; Rscript full.R
-    for i in $(seq ${K_st} ${K_en});do
-        cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/${i}/g" | sed "s/replaceen/${i}/g" | sed "s/replaceprefix/${i}/g" > ${i}.R ; Rscript ${i}.R
-    done
-    mkdir pdf${version} ; mv *.pdf pdf${version}
-done
+# 6. Admixture
+bed_file=prune.bed
+K=$(echo ${source} | awk '{print NF}')  # number of source
+admixture ${bed_file} ${K} --supervised -s time ${bootstrap} -j${thread} --cv | tee result.out
+# 7. grep result
+cat result.out | grep "CV error" > CV_error.txt
+
+# 8. plot
+cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/2/g" | sed "s/replacest/${K}/g" | sed "s/replaceen/${K}/g" | sed "s/replaceprefix/${K}/g" > ${K}.R ; Rscript ${K}.R
 
 prefix=$(basename ${work_dir})
-zip -r ${prefix}.zip pdf1 pdf2 *.{py,sh,txt} result.out
+zip -r ${prefix}.zip ${K}.pdf *.{py,sh,txt} result.out CV_error.txt

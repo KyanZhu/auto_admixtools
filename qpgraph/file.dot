@@ -1,0 +1,61 @@
+graph {
+
+# label group_name plot_name	
+# <Label>
+# root Root
+# label Mbuti.DG Mbuti
+# label Denisova.DG Denisova
+# label Onge.DG Onge
+# label Loschbour.DG Loschbour
+# label Tianyuan Tianyuan
+# label Liangdao2 Liangdao2
+# label Upper_YR_LN Upper_YR_LN
+# label Mongolia_N_East MNE
+# label Dulan Dulan
+# </Label>
+
+# edge e1 Root Modern_Human
+# <Edge>
+Root -- Modern_Human
+Root -- Archaic
+Modern_Human -- Mbuti
+Modern_Human -- Eurasia
+Archaic -- ghost10
+Archaic -- Denisova
+Eurasia -- WE
+Eurasia -- EE
+ghost9 -- Liangdao2
+WE -- Loschbour
+EE -- NEE
+EE -- SEE
+NEE -- ghost11
+NEE -- East_Asian
+SEE -- ghost1
+SEE -- ghost2
+East_Asian -- NEA
+East_Asian -- SEA
+ghost1 -- Onge
+ghost1 -- ghost3
+ghost13 -- Tianyuan
+NEA -- ghost6
+NEA -- ghost7
+ghost3 -- ghost4
+ghost3 -- ghost5
+YR -- ghost8
+ghost8 -- Upper_YR_LN
+ghost8 -- ghost15
+ghost6 -- MNE
+# </Edge>
+
+# 最后改成admix ghost13 ghost10 ghost11
+# <Admix>
+ghost11 -- ghost13
+ghost10 -- ghost13
+ghost4 -- ghost9
+SEA -- ghost9
+ghost5 -- YR
+ghost7 -- YR
+ghost2 -- Dulan
+ghost15 -- Dulan
+# </Admix>
+}

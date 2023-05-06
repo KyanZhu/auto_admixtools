@@ -3,11 +3,13 @@ library(pheatmap)
 INFILE='plot.txt' #outgroup_f3结果文件
 PREFIX=as.character(unlist(strsplit(INFILE, split = ".txt")))
 X<-as.matrix(read.table(INFILE))
+heatmap_title = "outgroup-f3(X,Y;Mbuti)"
 COL_POPX=1
 COL_POPY=2
 VALUE_COL=4
 Z_col=6
-cut_num=16
+cut_row=11
+cut_col=11
 POPS <- unique(sort(c((X[,COL_POPX:COL_POPY]))))
 NPOPS <- length(POPS)
 print(NPOPS)
@@ -36,8 +38,11 @@ colnames(aa)="Pop"
 bb=merge(data.frame(aa),popGroups_modern,by="Pop")
 cc=subset(bb,select=c(PopGroup))
 rownames(cc)=bb$Pop
-color=c("#42a5f5","#4dd0e1","#fff176","#ffd54f","#ffb74d","#ff8a65")
-pheatmap(Z, anotation_col=cc, annotation_row =cc,
-         # color=color, breaks = c(0.25,0.27,0.29,0.31,0.33,0.35,0.37),legend_breaks=c(0.25,0.27,0.29,0.31,0.33,0.35,0.37),
-         main="outgroup-f3(X,Y;Mbuti)",cutree_rows=cut_num,cutree_cols=cut_num,cellwidth = 8, cellheight = 8)  # distances 0 to 3 are red, 3 to 9 black
+bk <- c(seq(0.27,0.33,by=0.0005))
+pheatmap(Z, main=heatmap_title,
+         anotation_col=cc, annotation_row =cc,
+         scale = "none", breaks=bk, legend_breaks=seq(0.27,0.33,0.3),
+         color = c(colorRampPalette(colors = c("blue","white"))(length(bk)/2),colorRampPalette(colors = c("white","red"))(length(bk)/2)),
+         cutree_rows=cut_row, cutree_cols=cut_col,
+         cellwidth = 10, cellheight = 10)  # distances 0 to 3 are red, 3 to 9 black
 dev.off()

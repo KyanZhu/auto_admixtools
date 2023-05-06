@@ -62,7 +62,7 @@ done > extract.par && convertf -p extract.par
 # smartpca preprocessing
 row=$(cat ${poplist} -n | grep "====Ancient" | head -n 1 | rmsp | cut -f 1)
 row=$[ ${row} - 1 ]
-cat ${poplist} | head -n ${row} | grep -v "=" > modern.poplist
+cat ${poplist} | head -n ${row} | egrep -v "=|#" > modern.poplist
 
 # smartpca.par
 for i in "smartpca.par";do
@@ -89,6 +89,7 @@ pc1=$(head -n 1 smartpca.eval)
 pc2=$(tail -n+2 smartpca.eval | head -n 1)
 echo -n "PC1 (" >  PCs.txt ; echo "${pc1}/${lines}*100" | xargs -n 1 python bc.py >> PCs.txt ; echo "%)" >> PCs.txt
 echo -n "PC2 (" >> PCs.txt ; echo "${pc2}/${lines}*100" | xargs -n 1 python bc.py >> PCs.txt ; echo "%)" >> PCs.txt
+cat smartpca.log | grep "total number of snps killed in pass" | tail -n 1 >> PCs.txt
 
 # Post-Processing
 prefix=$(basename ${workdir})

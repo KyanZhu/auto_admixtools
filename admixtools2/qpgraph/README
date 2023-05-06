@@ -1,0 +1,10 @@
+# qpgraph
+extract_f2.sh 提取f2_blocks脚本
+poplist.txt   指定提取f2_blocks人群
+rotate.sh     多个类似人群进行替换 (e.g. Qihe Qihe3)
+qpgraph.R     对根目录所有.graph文件进行qpGraph分析
+iter.sh       增加样本时对一个底图进行建树
+autograph.R   官方自动建树
+
+# Modify graph in dot editor: https://edotor.net/
+# Use xxx to replace "." in graph (e.g. MbutixxxDG)

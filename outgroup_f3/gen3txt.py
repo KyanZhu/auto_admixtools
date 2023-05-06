@@ -11,6 +11,8 @@ import sys
 pop = ""
 with open(sys.argv[1], 'rt', encoding='utf-8') as file:
     for line in file:
+        if '#' in line:
+            continue
         if line[0] == "=":
             pop = line.strip().replace('=', '')
         else:

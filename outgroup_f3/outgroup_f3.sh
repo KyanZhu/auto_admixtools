@@ -1,17 +1,16 @@
 #!/bin/bash
 
 # coding:utf-8
-# @Time : 2022/12/03 01:50
-# @Author : cewinhot 
-# @Version : 2.2
+# @Time : 2023/05/02 01:50
+# @Author : kyanzhu
+# @Version : 2.3
 # @File : outgroup_f3.sh
 
 
 geno_dir=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k
-work_dir=/home/KongyangZhu/beizhou/5.popgen/9.outgroupf3/outgroupf3_1
+work_dir=$(pwd)
 geno_file=Wudi_Xianbei_1240k  # prefix
 poplist=poplist.txt
-qp3Pop_sh=/home/KongyangZhu/sh/outgroup_f3
 # qp3Pop parameters
 outgroup=Mbuti
 thread=10
@@ -21,7 +20,7 @@ cd ${work_dir}
 # check extract.poplist
 echo -e "=== checking popluations ! ==="
 lack_pops=""
-cat ${poplist} | grep -v "=" > extract.poplist
+cat ${poplist} | egrep -v "=|#" > extract.poplist
 cat ${geno_dir}/${geno_file}.ind | awk '{print $3}' | sort -u > ind.tmp
 pops=$(cat extract.poplist)
 for pop in ${pops};do
@@ -32,7 +31,7 @@ if [[ ${flag} == "FALSE" ]];then echo ${lack_pops} not in dataset; exit; fi
 
 # extract
 for i in "extract.par";do
-    cat ${poplist} | grep -v ${outgroup} | grep -v "=" > extract.poplist
+    cat ${poplist} | grep -v ${outgroup} | egrep -v "=|#" > extract.poplist
     echo ${outgroup} >> extract.poplist
     echo "genotypename: ${geno_dir}/${geno_file}.geno"
     echo "snpname: ${geno_dir}/${geno_file}.snp"
@@ -46,8 +45,7 @@ for i in "extract.par";do
 done > extract.par ; convertf -p extract.par
 
 # qp3pop par
-cat ${poplist} | grep -v ${outgroup} | grep -v "=" > tmp
-cp ${qp3Pop_sh}/*.{py,r} ./
+cat ${poplist} | grep -v ${outgroup} | egrep -v "=|#" > tmp
 python gen3Pop.py tmp ${outgroup} > qp3pop
 rm tmp gen3Pop.py
 
@@ -76,5 +74,5 @@ rm spop*
 python gen3txt.py ${poplist} > pop.txt
 Rscript plot_pheatmap.r
 
-zip qp3result.zip qp3.result plot.txt pop.txt plot_pheatmap.r *pdf *sh
+zip qp3result.zip *pdf *sh *txt *r *result
 notify qp3pop

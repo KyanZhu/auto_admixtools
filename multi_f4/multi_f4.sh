@@ -1,15 +1,15 @@
 #!/bin/sh
 # @Time : 2022/10/08 12:49
-# @Author : cewinhot
+# @Author : kyanzhu
 # @Version：1.4
 # @File : multi_f4
 
 # SETTINGS
 thread=10
-geno=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.geno  # 需要完整路径
-snp=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.snp
-ind=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k.ind
-f4_tools=/home/KongyangZhu/sh/f4_tools/v1.4
+prefix=/home/KongyangZhu/beizhou/5.popgen/5.merged_dataset/1240k/Wudi_Xianbei_1240k
+geno=${prefix}.geno  # 需要完整路径
+snp=${prefix}.snp
+ind=${prefix}.ind
 p1s="Mbuti.DG"  # 读文件或直接写列表
 p2s=$(cat p2s)
 p3s=$(cat p3s)
@@ -25,7 +25,6 @@ parallel echo "{1} {2} {3} {4}" ::: ${p1s} ::: ${p2s} ::: ${p3s} ::: ${p4s} > ${
 # Pre-Processing : softlink, tools
 alias rmsp='sed "s/^\s*//g" | sed "s/[[:blank:]]\+/\t/g"'
 if [ ! -f f4.geno ] || [ ! -f f4.snp ] || [ ! -f f4.ind ];then ln -s ${geno} f4.geno ; ln -s ${snp} f4.snp ; ln -s ${ind} f4.ind ; fi
-cp ${f4_tools}/{0.pars,4.merge_f4_result.v2.py,8.adjust_excel.py,plot.r} ./
 
 # Check if pops are exist
 cat f4.ind | rmsp | cut -f 3 | sort -u > ind.tmp
