@@ -25,7 +25,7 @@ pdf(file='summ.pdf',width=23,height=23)
 bk <- c(seq(-5,-0.1,by=0.01),seq(0,5,by=0.01))
 pheatmap(Z,main=heatmap_title, 
          scale = "none", breaks=bk, legend_breaks=seq(-5,5,2),
-         color = c(colorRampPalette(colors = c("blue","white"))(length(bk)/2),colorRampPalette(colors = c("white","red"))(length(bk)/2)),
+         color = c(colorRampPalette(colors = c("red","white"))(length(bk)/2),colorRampPalette(colors = c("white","blue"))(length(bk)/2)),
          cutree_rows=CUT_ROW, cutree_cols=CUT_COL, 
          cellwidth = 10, cellheight = 10)
 dev.off()

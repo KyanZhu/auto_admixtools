@@ -89,6 +89,7 @@ cat result.out | grep "CV error" | sort -k 4 -n > CV_error.txt
 min=$(cat CV_error.txt  | sort -k 4 -n | head -n 1 | awk '{print $3}' | egrep -o '[0-9]{1,2}')
 
 # plot
+unzip fancy.zip
 for version in 1 2;do
     cat ./fancy/fancyAdmixture_plot.R.template | sed "s/replaceversion/${version}/g" | sed "s/replacest/2/g" | sed "s/replaceen/${K_en}/g" | sed "s/replaceprefix/full/g" > full.R ; Rscript full.R
     for i in $(seq ${K_st} ${K_en});do

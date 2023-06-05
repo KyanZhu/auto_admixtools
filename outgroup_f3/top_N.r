@@ -1,16 +1,20 @@
 library(ggplot2)
 library(patchwork)
 library(ggpubr)
-fn=read.table("Wudi_f3.result",col.names=c("result","PopB", "PopA", "PopC", "Fst", "StdErr", "Z", "SNPs"))
-uni=unique(fn$PopA)  # cluster by PopA
+fn=read.table("top_20.txt",col.names=c("result","Target", "PopB", "PopC", "Fst", "StdErr", "Z", "SNPs"))
+uni=unique(fn$Target)  # cluster by Target
 len=length(uni)
 top_N=20
+fst_min = 0.28
+fst_max = 0.30
+WIDTH = 3.5
+HEIGHT = 5
 
 
-pdf(paste0("top_",top_N,".pdf"),width = 3.5, height = 5)
+pdf(paste0("top_",top_N,".pdf"),width = WIDTH, height = HEIGHT)
 for(i in 1:len){
   # subset
-  fn1 <- subset(fn, PopA==uni[i])
+  fn1 <- subset(fn, Target==uni[i])
   fn1$PopB <- factor(fn1$PopB, levels = rev(unique(fn1$PopB)))
   fn1 <- fn1[1:top_N,]
   # Color
@@ -44,7 +48,7 @@ for(i in 1:len){
     # geom_vline(xintercept = 0,colour = "orange",linetype="dashed")+  # 参考线
     # scale_colour_manual(values = c("#0000ff","#82b1ff","#bdbdbd","#ff8a80","#ff0000")) +
     # scale_fill_manual(values = c("#0000ff","#82b1ff","#bdbdbd","#ff8a80","#ff0000")) +
-    scale_x_continuous(limits=c(0.28, 0.34)) + 
+    scale_x_continuous(limits=c(fst_min, fst_max)) + 
     theme(panel.grid.major = element_blank(), 
           panel.grid.minor = element_blank(),  # 底色
           panel.background = element_blank(),
@@ -56,7 +60,3 @@ for(i in 1:len){
 plist <- list(p1)  #这里不太智能，需要你自己看看你的len数，然后修改
 do.call("ggarrange", c(plist, ncol=1, nrow=1)) #这里你可以自己修改一下
 dev.off()
-
-
-
-

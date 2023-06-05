@@ -30,17 +30,18 @@ cat ${outgroup} | sort -u | grep -v "^$" | grep -v ${pairwise_root} >> tmp ; cat
 cat ${poplist} ${outgroup} > extract.poplist ; rm tmp
 
 # extract population
-echo "genotypename: ${geno_dir}/${geno_file}.geno" > extract.par
-echo "snpname:      ${geno_dir}/${geno_file}.snp" >> extract.par
-echo "indivname:    ${geno_dir}/${geno_file}.ind" >> extract.par
-echo "genooutfilename: extract.geno" >> extract.par
-echo "snpoutfilename:  extract.snp"  >> extract.par
-echo "indoutfilename:  extract.ind"  >> extract.par
-echo "poplistname:  extract.poplist" >> extract.par
-echo "hashcheck:    NO"  >> extract.par
-echo "strandcheck:  NO"  >> extract.par
-echo "allowdups:    YES" >> extract.par
-convertf -p extract.par
+for i in "extract.par";do
+    echo "genotypename: ${geno_dir}/${geno_file}.geno"
+    echo "snpname:      ${geno_dir}/${geno_file}.snp"
+    echo "indivname:    ${geno_dir}/${geno_file}.ind"
+    echo "genooutfilename: extract.geno"
+    echo "snpoutfilename:  extract.snp"
+    echo "indoutfilename:  extract.ind"
+    echo "poplistname:  extract.poplist"
+    echo "hashcheck:    NO"
+    echo "strandcheck:  NO"
+    echo "allowdups:    YES"
+done > extract.par ; convertf -p extract.par
 
 # pairwise qpWave
 cp ${pairwise_dir}/gen_scripts.py ./
